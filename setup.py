@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="mojo-perception",
-    version="1.0.3",
+    version="1.0.4",
     author="Hoomano",
     author_email="contact@hoomano.com",
     description="Mojo Perception Python API",
