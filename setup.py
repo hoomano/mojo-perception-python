@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="mojo-perception",
-    version="1.0.4",
+    version="1.0.5",
     author="Hoomano",
     author_email="contact@hoomano.com",
     description="Mojo Perception Python API",
@@ -26,6 +26,7 @@ setuptools.setup(
     install_requires=[
         "mediapipe",
         "opencv-python",
-        "python-socketio"
+        "python-socketio",
+        "websocket-client"
     ]
 )
