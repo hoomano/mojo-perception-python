@@ -25,6 +25,7 @@ setuptools.setup(
     python_requires=">=3.6",
     install_requires=[
         "mediapipe",
-        "opencv-python"
+        "opencv-python",
+        "python-socketio"
     ]
 )
