@@ -186,6 +186,20 @@ class MojoPerceptionAPI:
         except Exception as e:
             logging.error("Error during initialization: {}".format(e))
 
+    def set_image_dimensions_and_connect_api(self, image_width, image_height):
+        """
+        Sets image dimensions and connects to the MojoPerceptionAPI through socketio.
+        Defines socketio callbacks.
+        :param image_width: Width of image
+        :param image_height: Height of image
+        """
+        try:
+            self.image_width = image_width
+            self.image_height = image_height
+            self._api_connect()
+        except Exception as e:
+            logging.error("Error during initialization: {}".format(e))
+
     def _api_connect(self):
         """
         Connects to the MojoPerceptionAPI through socketio.
@@ -283,7 +297,8 @@ class MojoPerceptionAPI:
                 return
             self.sending = False
             self.api_socket.disconnect()
-            self.release_camera()
+            if self.video_stream is not None:
+                self.release_camera()
         except Exception as e:
             self.on_error_callback(e)
             logging.error("Error during stopping facial expression recognition api: {}".format(e))
