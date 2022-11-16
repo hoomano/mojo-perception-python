@@ -7,7 +7,7 @@ Use Mojo Perception API as a Python module for Python applications.
 
 If you use `pip`, install mojo-perception-python module:
 ```
-pip install mojo-perception
+pip install mojoperception
 ```
 
 ## API Key
@@ -20,10 +20,10 @@ To use properly the API, you need an API key. Just go get one here : [https://ap
 
 ## Usage
 
-### `import mojo-perception`
+### `import mojoperception`
 
 ```
-import MojoPerceptionAPI from mojo-perception;
+from mojoperception.mojo_perception_api import MojoPerceptionAPI
 ```
 Create an object MojoPerceptionAPI:
 ```

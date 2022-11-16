@@ -26,10 +26,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import cv2
 
-# todo : change by import mojo-perception-python
-import sys
-sys.path.append('../src')
-from mojo_perception_api import MojoPerceptionAPI
+
+from mojoperception.mojo_perception_api import MojoPerceptionAPI
 
 # We initialize MojoPerceptionAPI here
 # Use your secured token and namespace to load the API.

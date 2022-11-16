@@ -52,7 +52,7 @@ class MojoPerceptionAPI:
         self.mojo_perception_uri = "https://api.mojo.ai/mojo_perception_api"
         self.auth_token, self.host, self.port, self.user_namespace = self.create_user()
         self.socketIo_uri = "https://{}:{}".format(self.host, self.port)
-        self.emotions = ["attention", "confusion", "surprise", "amusement", "pitching", "yawing"]
+        self.emotions = ["attention", "confusion", "surprise", "amusement", "engagement", "interaction"]
         self.subscribe_realtime_output = False
         self.api_socket = socketio.Client()
         self.sending = False
@@ -60,8 +60,8 @@ class MojoPerceptionAPI:
         self.amusement_callback = self.default_callback
         self.confusion_callback = self.default_callback
         self.surprise_callback = self.default_callback
-        self.pitching_callback = self.default_callback
-        self.yawing_callback = self.default_callback
+        self.engagement_callback = self.default_callback
+        self.interaction_callback = self.default_callback
         self.warmup_done_callback = self.default_callback
         self.warmup_callback_done = False
         self.first_emit_done = False
@@ -142,17 +142,17 @@ class MojoPerceptionAPI:
         """
 
         if "attention" in msg:
-            self.attention_callback(float(msg["attention"]))
+            self.attention_callback(msg["attention"])
         if "amusement" in msg:
-            self.amusement_callback(float(msg["amusement"]))
+            self.amusement_callback(msg["amusement"])
         if "confusion" in msg:
-            self.confusion_callback(float(msg["confusion"]))
+            self.confusion_callback(msg["confusion"])
         if "surprise" in msg:
-            self.surprise_callback(float(msg["surprise"]))
-        if "pitching" in msg:
-            self.pitching_callback(float(msg["pitching"]))
-        if "yawing" in msg:
-            self.yawing_callback(float(msg["yawing"]))
+            self.surprise_callback(msg["surprise"])
+        if "engagement" in msg:
+            self.engagement_callback(msg["engagement"])
+        if "interaction" in msg:
+            self.interaction_callback(msg["interaction"])
 
     def get_image_dimensions(self):
         """
@@ -206,8 +206,10 @@ class MojoPerceptionAPI:
         Defines socketio callbacks.
         """
         try:
-            self.api_socket.connect(self.socketIo_uri, namespaces=[f'/{self.user_namespace}'],
-                                    transports=['websocket', 'polling'])
+            self.api_socket.connect(self.socketIo_uri,
+                                    namespaces=[f'/{self.user_namespace}'],
+                                    transports=['websocket', 'polling'],
+                                    auth={"token": self.auth_token})
 
             if self.subscribe_realtime_output:
                 self.api_socket.on('calculation', self.message_handler, namespace=f'/{self.user_namespace}')
@@ -257,7 +259,6 @@ class MojoPerceptionAPI:
                 return
             self.api_socket.emit('facemesh',
                                  {'facemesh': face_mesh,
-                                  'token': self.auth_token,
                                   'timestamp': datetime.now().isoformat(),
                                   'output': self.emotions},
                                  namespace=f'/{self.user_namespace}')
