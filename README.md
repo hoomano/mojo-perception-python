@@ -1,4 +1,6 @@
-# Mojo Perception Python API
+# [DEPRECATED] Mojo Perception Python API
+
+⚠️ Unfortunately, this repository is no longer maintained as it has been moved to internal project. We are sorry for the inconvenience.
 
 Use Mojo Perception API as a Python module for Python applications.
 
